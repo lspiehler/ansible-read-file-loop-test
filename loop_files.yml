@@ -1,0 +1,23 @@
+---
+  - hosts: localhost
+    connection: local
+    gather_facts: false
+    vars:
+      match_host: all
+      build: default
+    tasks:
+      - name: Get directories
+        find:
+          paths: /etc
+          file_type: directory
+        register: dirs
+      - name: List all files
+        include_role:
+          name: list_files
+        loop: "{{ dirs.files }}"
+      #  register: files
+      #- name: List all files
+      #  ansible.builtin.debug:
+      #    msg: "Test {{ item }}"
+      #  loop: "{{ files.results }}"
+...

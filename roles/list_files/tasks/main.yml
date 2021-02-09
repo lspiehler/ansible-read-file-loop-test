@@ -1,0 +1,10 @@
+---
+  - name: Get all files
+    ansible.builtin.debug:
+      msg: "{{ lookup('file', file) }}"
+    with_fileglob:
+      - "{{ item.path }}/*"
+    loop_control:
+      loop_var: file
+    ignore_errors: True
+...
